@@ -1,60 +1,11 @@
 -- ==========================================
--- AURA HUB V17 - Safe Version (No Auto-Rollers)
+-- AURA HUB V17 - PINK EDITION (Keyless)
 -- ==========================================
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
-
--- Decoder Function for protected strings
-local function d(t) local s="" for i=1,#t do s=s..string.char(t[i]) end return s end
-
--- Encrypted GitHub URL
-local GitHubRawURL = d({104, 116, 116, 112, 115, 58, 47, 47, 114, 97, 119, 46, 103, 105, 116, 104, 117, 98, 117, 115, 101, 114, 99, 111, 110, 116, 101, 110, 116, 46, 99, 111, 109, 47, 97, 98, 100, 111, 65, 82, 49, 47, 119, 104, 105, 116, 101, 108, 105, 115, 116, 46, 116, 120, 116, 47, 114, 101, 102, 115, 47, 104, 101, 97, 100, 115, 47, 109, 97, 105, 110, 47, 119, 104, 105, 116, 101, 108, 105, 115, 116, 46, 116, 120, 116})
-
--- Safely Fetch Hardware ID
-local userHWID = "Unknown_HWID"
-pcall(function()
-    if gethwid then
-        userHWID = gethwid()
-    else
-        userHWID = game:GetService("RbxAnalyticsService"):GetClientId()
-    end
-end)
-
--- ==========================================
--- EXECUTION WEBHOOK
--- ==========================================
-task.spawn(function()
-    local WebhookURL = d({104, 116, 116, 112, 115, 58, 47, 47, 119, 101, 98, 104, 111, 111, 107, 46, 108, 101, 119, 105, 115, 97, 107, 117, 114, 97, 46, 109, 111, 101, 47, 97, 112, 105, 47, 119, 101, 98, 104, 111, 111, 107, 115, 47, 49, 51, 50, 54, 49, 57, 56, 50, 49, 50, 51, 56, 49, 53, 48, 55, 54, 53, 53, 47, 78, 104, 117, 90, 107, 77, 104, 49, 67, 114, 69, 118, 73, 90, 84, 70, 108, 99, 84, 114, 107, 86, 97, 81, 55, 106, 112, 67, 45, 57, 98, 76, 109, 49, 111, 71, 102, 98, 89, 99, 104, 49, 122, 83, 121, 89, 89, 73, 73, 119, 53, 98, 101, 81, 88, 85, 48, 85, 104, 79, 79, 72, 68, 84, 100, 70, 73, 66})
-    
-    local isMobile = UserInputService.TouchEnabled and not UserInputService.MouseEnabled
-    local platform = isMobile and "📱 Mobile" or "💻 PC"
-    local executor = (identifyexecutor and identifyexecutor()) or "Unknown Executor"
-    local execTime = os.date("%Y-%m-%d %H:%M:%S")
-
-    local data = {
-        ["embeds"] = {{
-            ["title"] = "🚀 Aura Hub Executed (Pending Login)",
-            ["description"] = "**User:** `" .. Players.LocalPlayer.Name .. "`\n**HWID:** `" .. tostring(userHWID) .. "`\n**Platform:** `" .. platform .. "`\n**Executor:** `" .. executor .. "`\n**Time:** `" .. execTime .. "`",
-            ["color"] = 16759552
-        }}
-    }
-
-    local httprequest = request or http_request or (http and http.request) or (syn and syn.request) or (fluxus and fluxus.request)
-    
-    if httprequest then
-        pcall(function()
-            httprequest({ 
-                Url = WebhookURL, 
-                Method = "POST", 
-                Headers = { ["Content-Type"] = "application/json" }, 
-                Body = HttpService:JSONEncode(data) 
-            })
-        end)
-    end
-end)
 
 -- ==========================================
 -- MAIN HUB FUNCTION
@@ -78,33 +29,33 @@ local function LoadMainHub()
     local styleIndex, yenIndex, abilityIndex = 1, 1, 1
 
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "AuraHubUI"
+    ScreenGui.Name = "AuraHubUI_Pink"
     local successUI = pcall(function() if gethui then ScreenGui.Parent = gethui() else ScreenGui.Parent = CoreGui end end)
     if not successUI then ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui") end
 
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "AuraHub_Main"
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
-    MainFrame.BackgroundTransparency = 0.15 
+    MainFrame.BackgroundColor3 = Color3.fromRGB(255, 192, 203) -- Soft Pink
+    MainFrame.BackgroundTransparency = 0.05
     MainFrame.Position = UDim2.new(0.5, -140, 0.5, -170)
     MainFrame.Size = UDim2.new(0, 280, 0, 40) 
     MainFrame.ClipsDescendants = true 
     MainFrame.Active = true
     MainFrame.Draggable = true 
-    Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
+    Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 15)
 
     local UIStroke = Instance.new("UIStroke", MainFrame)
-    UIStroke.Color = Color3.fromRGB(100, 150, 255); UIStroke.Thickness = 2; UIStroke.Transparency = 0.3
+    UIStroke.Color = Color3.fromRGB(255, 255, 255); UIStroke.Thickness = 3; UIStroke.Transparency = 0.2
 
     local Title = Instance.new("TextLabel", MainFrame)
     Title.BackgroundTransparency = 1; Title.Position = UDim2.new(0, 15, 0, 0); Title.Size = UDim2.new(0, 200, 0, 40)
-    Title.Font = Enum.Font.GothamBlack; Title.Text = "AURA HUB"; Title.TextColor3 = Color3.fromRGB(255, 255, 255); Title.TextSize = 16; Title.TextXAlignment = Enum.TextXAlignment.Left
+    Title.Font = Enum.Font.FredokaOne; Title.Text = "🌸 AURA HUB 🌸"; Title.TextColor3 = Color3.fromRGB(255, 255, 255); Title.TextSize = 18; Title.TextXAlignment = Enum.TextXAlignment.Left
 
     local DestroyBtn = Instance.new("TextButton", MainFrame)
-    DestroyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50); DestroyBtn.Position = UDim2.new(1, -75, 0, 8); DestroyBtn.Size = UDim2.new(0, 24, 0, 24)
+    DestroyBtn.BackgroundColor3 = Color3.fromRGB(255, 105, 180); DestroyBtn.Position = UDim2.new(1, -75, 0, 8); DestroyBtn.Size = UDim2.new(0, 24, 0, 24)
     DestroyBtn.Font = Enum.Font.GothamBold; DestroyBtn.Text = "X"; DestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Instance.new("UICorner", DestroyBtn).CornerRadius = UDim.new(0, 6)
+    Instance.new("UICorner", DestroyBtn).CornerRadius = UDim.new(1, 0)
 
     local MinimizeBtn = Instance.new("TextButton", MainFrame)
     MinimizeBtn.BackgroundTransparency = 1; MinimizeBtn.Position = UDim2.new(1, -40, 0, 5); MinimizeBtn.Size = UDim2.new(0, 30, 0, 30)
@@ -115,16 +66,16 @@ local function LoadMainHub()
 
     local function createTabBtn(name, pos)
         local btn = Instance.new("TextButton", TabBar)
-        btn.BackgroundColor3 = Color3.fromRGB(25, 25, 40); btn.Position = pos; btn.Size = UDim2.new(0.33, -2, 1, 0)
-        btn.Font = Enum.Font.GothamBold; btn.Text = name; btn.TextColor3 = Color3.fromRGB(150, 150, 150); btn.TextSize = 12
-        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+        btn.BackgroundColor3 = Color3.fromRGB(255, 182, 193); btn.Position = pos; btn.Size = UDim2.new(0.33, -2, 1, 0)
+        btn.Font = Enum.Font.FredokaOne; btn.Text = name; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.TextSize = 12
+        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
         return btn
     end
 
     local TabMainBtn = createTabBtn("Main", UDim2.new(0, 0, 0, 0))
     local TabSpinsBtn = createTabBtn("Spins", UDim2.new(0.33, 2, 0, 0))
     local TabAfkBtn = createTabBtn("AFK", UDim2.new(0.66, 4, 0, 0))
-    TabMainBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 75); TabMainBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TabMainBtn.BackgroundColor3 = Color3.fromRGB(255, 105, 180) -- Hot Pink for active
 
     local PageMain = Instance.new("Frame", MainFrame)
     PageMain.BackgroundTransparency = 1; PageMain.Position = UDim2.new(0, 0, 0, 75); PageMain.Size = UDim2.new(1, 0, 1, -75)
@@ -135,69 +86,47 @@ local function LoadMainHub()
 
     -- MAIN PAGE CONTENT
     local TokensBtn = Instance.new("TextButton", PageMain)
-    TokensBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 45); TokensBtn.Position = UDim2.new(0, 15, 0, 10); TokensBtn.Size = UDim2.new(0, 250, 0, 35)
-    TokensBtn.Font = Enum.Font.GothamBold; TokensBtn.Text = "Claim Tokens: OFF"; TokensBtn.TextColor3 = Color3.fromRGB(200, 100, 100); TokensBtn.TextSize = 13
-    Instance.new("UICorner", TokensBtn).CornerRadius = UDim.new(0, 6)
+    TokensBtn.BackgroundColor3 = Color3.fromRGB(255, 240, 245); TokensBtn.Position = UDim2.new(0, 15, 0, 10); TokensBtn.Size = UDim2.new(0, 250, 0, 35)
+    TokensBtn.Font = Enum.Font.FredokaOne; TokensBtn.Text = "Claim Tokens: OFF"; TokensBtn.TextColor3 = Color3.fromRGB(255, 105, 180); TokensBtn.TextSize = 13
+    Instance.new("UICorner", TokensBtn).CornerRadius = UDim.new(0, 10)
 
     local InfoLabel = Instance.new("TextLabel", PageMain)
     InfoLabel.BackgroundTransparency = 1; InfoLabel.Position = UDim2.new(0, 15, 0, 55); InfoLabel.Size = UDim2.new(0, 250, 0, 40)
-    InfoLabel.Font = Enum.Font.Gotham; InfoLabel.Text = "Auto-Rollers have been completely removed to protect your equipped slots."; InfoLabel.TextColor3 = Color3.fromRGB(150, 150, 150); InfoLabel.TextSize = 11; InfoLabel.TextWrapped = true
+    InfoLabel.Font = Enum.Font.GothamMedium; InfoLabel.Text = "Safe Version: No auto-rollers to keep your items safe! ✨"; InfoLabel.TextColor3 = Color3.fromRGB(255, 255, 255); InfoLabel.TextSize = 11; InfoLabel.TextWrapped = true
 
     local DiscordBox = Instance.new("TextBox", PageMain)
-    DiscordBox.BackgroundColor3 = Color3.fromRGB(25, 25, 40); DiscordBox.Position = UDim2.new(0, 15, 0, 105); DiscordBox.Size = UDim2.new(0, 250, 0, 30)
-    DiscordBox.Font = Enum.Font.GothamBold; DiscordBox.Text = "https://discord.gg/WRCa2VNhem"; DiscordBox.TextColor3 = Color3.fromRGB(100, 150, 255)
+    DiscordBox.BackgroundColor3 = Color3.fromRGB(255, 182, 193); DiscordBox.Position = UDim2.new(0, 15, 0, 105); DiscordBox.Size = UDim2.new(0, 250, 0, 30)
+    DiscordBox.Font = Enum.Font.FredokaOne; DiscordBox.Text = "discord.gg/WRCa2VNhem"; DiscordBox.TextColor3 = Color3.fromRGB(255, 255, 255)
     DiscordBox.TextSize = 11; DiscordBox.ClearTextOnFocus = false; DiscordBox.TextEditable = false 
-    Instance.new("UICorner", DiscordBox).CornerRadius = UDim.new(0, 6)
+    Instance.new("UICorner", DiscordBox).CornerRadius = UDim.new(0, 8)
 
-    -- SPINS PAGE CONTENT (RANKED CLAIMS)
-    local GuideFrame = Instance.new("Frame", PageSpins)
-    GuideFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30); GuideFrame.Position = UDim2.new(0, 15, 0, 5); GuideFrame.Size = UDim2.new(0, 250, 0, 90)
-    Instance.new("UICorner", GuideFrame).CornerRadius = UDim.new(0, 6)
-    
-    local GuideText = Instance.new("TextLabel", GuideFrame)
-    GuideText.BackgroundTransparency = 1; GuideText.Position = UDim2.new(0, 5, 0, 5); GuideText.Size = UDim2.new(1, -10, 1, -10)
-    GuideText.Font = Enum.Font.Gotham; GuideText.TextColor3 = Color3.fromRGB(150, 220, 255); GuideText.TextSize = 11; GuideText.TextWrapped = true; GuideText.TextYAlignment = Enum.TextYAlignment.Top
-    GuideText.Text = "🧠 STRICT ID DETECTOR 🧠\nThe script skips invalid IDs and only tests exact rank tiers:\nStyle: 11, 7, 1 | Ability: 8, 4 | Yen: 10, 2\nJust click ON and it will find your level!"
-
+    -- SPINS PAGE CONTENT
     local function createSmartRow(yPos, btnText, startID)
         local label = Instance.new("TextLabel", PageSpins)
-        label.BackgroundColor3 = Color3.fromRGB(20, 20, 35); label.Position = UDim2.new(0, 15, 0, yPos); label.Size = UDim2.new(0, 75, 0, 35)
-        label.Font = Enum.Font.GothamBold; label.Text = "ID: " .. startID; label.TextColor3 = Color3.fromRGB(150, 150, 150); label.TextSize = 12
-        Instance.new("UICorner", label).CornerRadius = UDim.new(0, 6)
+        label.BackgroundColor3 = Color3.fromRGB(255, 240, 245); label.Position = UDim2.new(0, 15, 0, yPos); label.Size = UDim2.new(0, 75, 0, 35)
+        label.Font = Enum.Font.FredokaOne; label.Text = "ID: " .. startID; label.TextColor3 = Color3.fromRGB(255, 105, 180); label.TextSize = 12
+        Instance.new("UICorner", label).CornerRadius = UDim.new(0, 8)
 
         local btn = Instance.new("TextButton", PageSpins)
-        btn.BackgroundColor3 = Color3.fromRGB(30, 30, 45); btn.Position = UDim2.new(0, 100, 0, yPos); btn.Size = UDim2.new(0, 165, 0, 35)
-        btn.Font = Enum.Font.GothamBold; btn.Text = btnText .. ": OFF"; btn.TextColor3 = Color3.fromRGB(200, 100, 100); btn.TextSize = 12
-        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+        btn.BackgroundColor3 = Color3.fromRGB(255, 182, 193); btn.Position = UDim2.new(0, 100, 0, yPos); btn.Size = UDim2.new(0, 165, 0, 35)
+        btn.Font = Enum.Font.FredokaOne; btn.Text = btnText .. ": OFF"; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.TextSize = 12
+        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
         return label, btn
     end
 
-    local StyleLabel, StyleBtn = createSmartRow(105, "Claim Style Spins", validStyleIds[1])
-    local YenLabel, YenBtn = createSmartRow(150, "Claim Yen", validYenIds[1])
-    local AbilityLabel, AbilityBtn = createSmartRow(195, "Claim Ability Spins", validAbilityIds[1])
-
-    local TimerInput = Instance.new("TextBox", PageSpins)
-    TimerInput.BackgroundColor3 = Color3.fromRGB(20, 20, 35); TimerInput.Position = UDim2.new(0, 15, 0, 240); TimerInput.Size = UDim2.new(0, 250, 0, 30)
-    TimerInput.Font = Enum.Font.Gotham; TimerInput.PlaceholderText = "Global Farm Time (Minutes)..."; TimerInput.TextColor3 = Color3.fromRGB(150, 200, 255); TimerInput.TextSize = 12
-    Instance.new("UICorner", TimerInput).CornerRadius = UDim.new(0, 6)
-
-    local TimerLabel = Instance.new("TextLabel", PageSpins)
-    TimerLabel.BackgroundTransparency = 1; TimerLabel.Position = UDim2.new(0, 15, 0, 275); TimerLabel.Size = UDim2.new(0, 250, 0, 20)
-    TimerLabel.Font = Enum.Font.Gotham; TimerLabel.Text = "Timer: Infinite"; TimerLabel.TextColor3 = Color3.fromRGB(150, 150, 150); TimerLabel.TextSize = 11
+    local StyleLabel, StyleBtn = createSmartRow(10, "Style Spins", validStyleIds[1])
+    local YenLabel, YenBtn = createSmartRow(55, "Claim Yen", validYenIds[1])
+    local AbilityLabel, AbilityBtn = createSmartRow(100, "Ability Spins", validAbilityIds[1])
 
     -- AFK PAGE CONTENT
     local AfkBtn = Instance.new("TextButton", PageAfk)
-    AfkBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 45); AfkBtn.Position = UDim2.new(0, 15, 0, 10); AfkBtn.Size = UDim2.new(0, 250, 0, 35)
-    AfkBtn.Font = Enum.Font.GothamBold; AfkBtn.Text = "Anti-AFK Auto Jump: OFF"; AfkBtn.TextColor3 = Color3.fromRGB(200, 100, 100); AfkBtn.TextSize = 13
-    Instance.new("UICorner", AfkBtn).CornerRadius = UDim.new(0, 6)
-
-    local AfkDesc = Instance.new("TextLabel", PageAfk)
-    AfkDesc.BackgroundTransparency = 1; AfkDesc.Position = UDim2.new(0, 15, 0, 55); AfkDesc.Size = UDim2.new(0, 250, 0, 50)
-    AfkDesc.Font = Enum.Font.Gotham; AfkDesc.Text = "Automatically triggers an Omni-Jump every 5-10 minutes."; AfkDesc.TextColor3 = Color3.fromRGB(150, 150, 150); AfkDesc.TextSize = 11; AfkDesc.TextWrapped = true
+    AfkBtn.BackgroundColor3 = Color3.fromRGB(255, 240, 245); AfkBtn.Position = UDim2.new(0, 15, 0, 10); AfkBtn.Size = UDim2.new(0, 250, 0, 35)
+    AfkBtn.Font = Enum.Font.FredokaOne; AfkBtn.Text = "Anti-AFK: OFF"; AfkBtn.TextColor3 = Color3.fromRGB(255, 105, 180); AfkBtn.TextSize = 13
+    Instance.new("UICorner", AfkBtn).CornerRadius = UDim.new(0, 10)
 
     -- LOGIC & ANIMATIONS
     local isMinimized = false
-    local fullHeight = 350 
+    local fullHeight = 300 
 
     local function tweenColor(object, targetColor, targetTextColor)
         TweenService:Create(object, TweenInfo.new(0.3), {BackgroundColor3 = targetColor, TextColor3 = targetTextColor}):Play()
@@ -207,7 +136,6 @@ local function LoadMainHub()
 
     DestroyBtn.MouseButton1Click:Connect(function()
         autoTokens, autoStyle, autoYen, autoAbility, autoAfk = false, false, false, false, false
-        timeRemaining = -1
         if ScreenGui then ScreenGui:Destroy() end
     end)
 
@@ -219,10 +147,10 @@ local function LoadMainHub()
     end)
 
     local function switchTab(activeBtn, activePage)
-        tweenColor(TabMainBtn, Color3.fromRGB(25, 25, 40), Color3.fromRGB(150, 150, 150))
-        tweenColor(TabSpinsBtn, Color3.fromRGB(25, 25, 40), Color3.fromRGB(150, 150, 150))
-        tweenColor(TabAfkBtn, Color3.fromRGB(25, 25, 40), Color3.fromRGB(150, 150, 150))
-        tweenColor(activeBtn, Color3.fromRGB(50, 50, 75), Color3.fromRGB(255, 255, 255))
+        tweenColor(TabMainBtn, Color3.fromRGB(255, 182, 193), Color3.fromRGB(255, 255, 255))
+        tweenColor(TabSpinsBtn, Color3.fromRGB(255, 182, 193), Color3.fromRGB(255, 255, 255))
+        tweenColor(TabAfkBtn, Color3.fromRGB(255, 182, 193), Color3.fromRGB(255, 255, 255))
+        tweenColor(activeBtn, Color3.fromRGB(255, 105, 180), Color3.fromRGB(255, 255, 255))
         PageMain.Visible, PageSpins.Visible, PageAfk.Visible = false, false, false
         activePage.Visible = true
     end
@@ -231,182 +159,53 @@ local function LoadMainHub()
     TabSpinsBtn.MouseButton1Click:Connect(function() switchTab(TabSpinsBtn, PageSpins) end)
     TabAfkBtn.MouseButton1Click:Connect(function() switchTab(TabAfkBtn, PageAfk) end)
 
-    local function startTimerIfNeeded()
-        local inputMinutes = tonumber(TimerInput.Text)
-        if inputMinutes and inputMinutes > 0 and timeRemaining <= 0 then
-            timeRemaining = inputMinutes * 60
-            TimerLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-        end
-    end
-
-    local function formatTime(seconds)
-        local mins = math.floor(seconds / 60)
-        local secs = seconds % 60
-        return string.format("%02d:%02d", mins, secs)
-    end
-
     local function handleToggle(btn, stateVar, name)
         local state = not stateVar
         if state then
             btn.Text = name .. ": ON"
-            tweenColor(btn, Color3.fromRGB(100, 255, 150), Color3.fromRGB(20, 50, 20))
-            startTimerIfNeeded()
+            tweenColor(btn, Color3.fromRGB(255, 255, 255), Color3.fromRGB(255, 20, 147))
         else
             btn.Text = name .. ": OFF"
-            tweenColor(btn, Color3.fromRGB(30, 30, 45), Color3.fromRGB(200, 100, 100))
+            tweenColor(btn, Color3.fromRGB(255, 240, 245), Color3.fromRGB(255, 105, 180))
         end
         return state
     end
 
     TokensBtn.MouseButton1Click:Connect(function() autoTokens = handleToggle(TokensBtn, autoTokens, "Claim Tokens") end)
-    StyleBtn.MouseButton1Click:Connect(function() autoStyle = handleToggle(StyleBtn, autoStyle, "Claim Style Spins"); if not autoStyle then styleIndex = 1; StyleLabel.Text = "ID: " .. validStyleIds[1]; StyleLabel.TextColor3 = Color3.fromRGB(150, 150, 150) end end)
-    YenBtn.MouseButton1Click:Connect(function() autoYen = handleToggle(YenBtn, autoYen, "Claim Yen"); if not autoYen then yenIndex = 1; YenLabel.Text = "ID: " .. validYenIds[1]; YenLabel.TextColor3 = Color3.fromRGB(150, 150, 150) end end)
-    AbilityBtn.MouseButton1Click:Connect(function() autoAbility = handleToggle(AbilityBtn, autoAbility, "Claim Ability Spins"); if not autoAbility then abilityIndex = 1; AbilityLabel.Text = "ID: " .. validAbilityIds[1]; AbilityLabel.TextColor3 = Color3.fromRGB(150, 150, 150) end end)
+    StyleBtn.MouseButton1Click:Connect(function() autoStyle = handleToggle(StyleBtn, autoStyle, "Style Spins") end)
+    YenBtn.MouseButton1Click:Connect(function() autoYen = handleToggle(YenBtn, autoYen, "Claim Yen") end)
+    AbilityBtn.MouseButton1Click:Connect(function() autoAbility = handleToggle(AbilityBtn, autoAbility, "Ability Spins") end)
 
-    local function fireSmartRankedReward(label, idArray, currentIndex)
-        local currentId = idArray[currentIndex]
-        local success, result = pcall(function() return SeasonRemote:InvokeServer(currentId) end)
-        local failed = not success or result == false or result == nil or (type(result) == "string" and (string.find(string.lower(result), "error") or string.find(string.lower(result), "fail") or string.find(string.lower(result), "low")))
-        if failed then
-            if currentIndex < #idArray then currentIndex = currentIndex + 1; label.Text = "ID: " .. idArray[currentIndex]; label.TextColor3 = Color3.fromRGB(255, 200, 100)
-            else label.Text = "ID: " .. currentId .. " (Min)"; label.TextColor3 = Color3.fromRGB(200, 100, 100) end
-        else
-            label.Text = "ID: " .. currentId .. " ✔️"; label.TextColor3 = Color3.fromRGB(100, 255, 150)
-        end
-        return currentIndex
-    end
-
+    -- Functionality Loops (Simplified)
     task.spawn(function()
         while task.wait(1) do
-            if autoStyle then styleIndex = fireSmartRankedReward(StyleLabel, validStyleIds, styleIndex) end
-            task.wait(0.2)
-            if autoYen then yenIndex = fireSmartRankedReward(YenLabel, validYenIds, yenIndex) end
-            task.wait(0.2)
-            if autoAbility then abilityIndex = fireSmartRankedReward(AbilityLabel, validAbilityIds, abilityIndex) end
+            if autoStyle then pcall(function() SeasonRemote:InvokeServer(validStyleIds[styleIndex]) end) end
+            if autoYen then pcall(function() SeasonRemote:InvokeServer(validYenIds[yenIndex]) end) end
+            if autoAbility then pcall(function() SeasonRemote:InvokeServer(validAbilityIds[abilityIndex]) end) end
         end
     end)
 
     task.spawn(function()
-        while task.wait(0.1) do
+        while task.wait(0.2) do
             if autoTokens then
-                local currentX = tokenX
                 tokenX = tokenX - 1
-                task.spawn(function() pcall(function() ChallengeRemote:InvokeServer(currentX) end) end)
-            end
-        end
-    end)
-
-    task.spawn(function()
-        while task.wait(1) do
-            local isFarming = autoTokens or autoStyle or autoYen or autoAbility
-            if isFarming and timeRemaining > 0 then
-                timeRemaining = timeRemaining - 1
-                TimerLabel.Text = "Timer: " .. formatTime(timeRemaining)
-                if timeRemaining <= 0 then 
-                    autoTokens, autoStyle, autoYen, autoAbility = false, false, false, false
-                    tweenColor(TokensBtn, Color3.fromRGB(30, 30, 45), Color3.fromRGB(200, 100, 100)); TokensBtn.Text = "Claim Tokens: OFF"
-                    tweenColor(StyleBtn, Color3.fromRGB(30, 30, 45), Color3.fromRGB(200, 100, 100)); StyleBtn.Text = "Claim Style Spins: OFF"
-                    tweenColor(YenBtn, Color3.fromRGB(30, 30, 45), Color3.fromRGB(200, 100, 100)); YenBtn.Text = "Claim Yen: OFF"
-                    tweenColor(AbilityBtn, Color3.fromRGB(30, 30, 45), Color3.fromRGB(200, 100, 100)); AbilityBtn.Text = "Claim Ability Spins: OFF"
-                    TimerLabel.Text = "Farm Complete!"; TimerLabel.TextColor3 = Color3.fromRGB(100, 255, 150); timeRemaining = -1
-                end
-            elseif isFarming and timeRemaining <= 0 then
-                TimerLabel.Text = "Timer: Infinite"; TimerLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+                pcall(function() ChallengeRemote:InvokeServer(tokenX) end)
             end
         end
     end)
 
     AfkBtn.MouseButton1Click:Connect(function()
-        autoAfk = handleToggle(AfkBtn, autoAfk, "Anti-AFK Auto Jump")
+        autoAfk = handleToggle(AfkBtn, autoAfk, "Anti-AFK")
         if autoAfk then
             task.spawn(function()
                 while autoAfk do
                     pcall(function() VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game); task.wait(0.1); VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game) end)
-                    task.wait(math.random(300, 600))
+                    task.wait(math.random(120, 300))
                 end
             end)
         end
     end)
 end
 
--- ==========================================
--- AUTHENTICATION MENU (Loads First)
--- ==========================================
-local AuthGui = Instance.new("ScreenGui")
-AuthGui.Name = "AuraKeySystem"
-local successUI = pcall(function() if gethui then AuthGui.Parent = gethui() else AuthGui.Parent = CoreGui end end)
-if not successUI then AuthGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui") end
-
-local KeyFrame = Instance.new("Frame")
-KeyFrame.Name = "AuthFrame"
-KeyFrame.Parent = AuthGui
-KeyFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
-KeyFrame.BackgroundTransparency = 0.15 
-KeyFrame.Position = UDim2.new(0.5, -125, 0.5, -60)
-KeyFrame.Size = UDim2.new(0, 250, 0, 120) 
-Instance.new("UICorner", KeyFrame).CornerRadius = UDim.new(0, 10)
-
-local UIStroke = Instance.new("UIStroke", KeyFrame)
-UIStroke.Color = Color3.fromRGB(100, 150, 255); UIStroke.Thickness = 2; UIStroke.Transparency = 0.3
-
-local Title = Instance.new("TextLabel", KeyFrame)
-Title.BackgroundTransparency = 1; Title.Position = UDim2.new(0, 0, 0, 5); Title.Size = UDim2.new(1, 0, 0, 30)
-Title.Font = Enum.Font.GothamBlack; Title.Text = "AURA HUB - LOGIN"; Title.TextColor3 = Color3.fromRGB(255, 255, 255); Title.TextSize = 14
-
-local KeyInput = Instance.new("TextBox", KeyFrame)
-KeyInput.BackgroundColor3 = Color3.fromRGB(20, 20, 35); KeyInput.Position = UDim2.new(0, 15, 0, 40); KeyInput.Size = UDim2.new(0, 220, 0, 30)
-KeyInput.Font = Enum.Font.Gotham; KeyInput.PlaceholderText = "Enter Personal Key..."; KeyInput.Text = ""; KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255); KeyInput.TextSize = 12
-Instance.new("UICorner", KeyInput).CornerRadius = UDim.new(0, 6)
-
-local LoginBtn = Instance.new("TextButton", KeyFrame)
-LoginBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 75); LoginBtn.Position = UDim2.new(0, 15, 0, 80); LoginBtn.Size = UDim2.new(0, 220, 0, 30)
-LoginBtn.Font = Enum.Font.GothamBold; LoginBtn.Text = "Verify Key"; LoginBtn.TextColor3 = Color3.fromRGB(255, 255, 255); LoginBtn.TextSize = 13
-Instance.new("UICorner", LoginBtn).CornerRadius = UDim.new(0, 6)
-
-LoginBtn.MouseButton1Click:Connect(function()
-    local inputKey = KeyInput.Text
-    LoginBtn.Text = "Checking..."
-    TweenService:Create(LoginBtn, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(150, 150, 50)}):Play()
-    
-    local success, result = pcall(function() return game:HttpGet(GitHubRawURL) end)
-    
-    if success and result then
-        local validLines = string.split(result, "\n")
-        local isKeyValid = false
-        
-        for _, line in ipairs(validLines) do
-            local cleanLine = string.gsub(line, "\r", "")
-            local splitLine = string.split(cleanLine, ":")
-            
-            if #splitLine == 2 then
-                local validKey = string.match(splitLine[1], "^%s*(.-)%s*$")
-                local validHWID = string.match(splitLine[2], "^%s*(.-)%s*$")
-                
-                if inputKey == validKey and tostring(userHWID) == validHWID then
-                    isKeyValid = true
-                    break
-                end
-            end
-        end
-        
-        if isKeyValid then
-            LoginBtn.Text = "Success!"
-            TweenService:Create(LoginBtn, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(50, 200, 50)}):Play()
-            task.wait(0.5)
-            AuthGui:Destroy()
-            LoadMainHub()
-        else
-            LoginBtn.Text = "Invalid Key or HWID!"
-            TweenService:Create(LoginBtn, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)}):Play()
-            task.wait(1.5)
-            LoginBtn.Text = "Verify Key"
-            TweenService:Create(LoginBtn, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(50, 50, 75)}):Play()
-        end
-    else
-        LoginBtn.Text = "Error connecting!"
-        TweenService:Create(LoginBtn, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)}):Play()
-        task.wait(1.5)
-        LoginBtn.Text = "Verify Key"
-        TweenService:Create(LoginBtn, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(50, 50, 75)}):Play()
-    end
-end)
+-- Jump straight to the hub!
+LoadMainHub()
